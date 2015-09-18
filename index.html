@@ -22,15 +22,17 @@ and open the template in the editor.
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
 
         <script type="text/template" id="weather_template">
-            <table class="table striped">
+            <ul>
             <% _.each(weather, function(weather) { %>
-            <tr>
-                <td><%= weather.get('day') %></td>
-                <td><%= weather.get('text') %></td>
-                <td><%= Math.round((parseInt(weather.get('high')) - 32) * (5/9)) %>° <%= Math.round((parseInt(weather.get('low')) - 32) * (5/9)) %>°</td>
-            </tr>
+            <li>
+                <ul>
+                    <li><%= weather.get('day') %></li>
+                    <li><%= weather.get('text') %></li>
+                    <li><%= Math.round((parseInt(weather.get('high')) - 32) * (5/9)) %>° <%= Math.round((parseInt(weather.get('low')) - 32) * (5/9)) %>°</li>
+                </ul>
+            </li>
             <% }); %>
-            </table>
+            </ul>
         </script>
 
         <script>
