@@ -20,22 +20,56 @@ and open the template in the editor.
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js" type="text/javascript"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
+
+        <script type="text/template" id="weather_template">
+            <a href="#/new" class="btn btn-primary">New</a>
+            <hr />
+            <table class="table striped">
+            <thead>
+            <tr>
+            <th>First Name</th><th>Last Name</th><th>Age</th><th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% _.each(users, function(user) { %>
+            <tr>
+            <td><%= htmlEncode(user.get('firstname')) %></td>
+            <td><%= htmlEncode(user.get('lastname')) %></td>
+            <td><%= htmlEncode(user.get('age')) %></td>
+            <td><a class="btn" href="#/edit/<%= user.id %>">Edit</a></td>
+            </tr>
+            <% }); %>
+            </tbody>
+            </table>
+        </script>
+
         <script>
+
+            var WeatherView = Backbone.View.extend({
+                el: '.page',
+                render: function () {
+                    var that = this;
+                    var users = new Users();
+                    users.fetch({
+                        success: function (users) {
+                            var template = _.template($('#weather_template').html(), {users: users.models});
+                            that.$el.html(template);
+                        }
+                    })
+                }
+            });
+
             var Router = Backbone.Router.extend({
                 routes: {
-                    "": "home",
-                    "edit/:id": "edit",
-                    "new": "edit",
+                    "": "home"
                 }
             });
             var router = new Router;
             router.on('route:home', function () {
                 // render user list
-                userListView.render();
-            })
-            router.on('route:edit', function (id) {
-                userEditView.render({id: id});
-            })
+                WeatherView.render();
+            });
+
             Backbone.history.start();
         </script>
     </body>
