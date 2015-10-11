@@ -1,0 +1,19 @@
+/* 
+    Created on : 29.09.2015, 18:50:57
+    Author     : tobias
+*/
+body {
+    background: url('../img/background/hamburg.jpg');
+    background-size: 2048px 1365px;
+    background-repeat:no-repeat;
+}
+
+.table .text-right {
+    text-align: right
+}
+.table .text-left {
+    text-align: left
+}
+.table .text-center {
+    text-align: center
+}

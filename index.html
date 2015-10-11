@@ -5,6 +5,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/weather-icons.css">
+        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <div class="container">
@@ -12,25 +14,27 @@
             <hr />
             <div class="page"></div>
         </div>
+
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js" type="text/javascript"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
 
         <script type="text/template" id="weather_template">
-            <ul>
+            <% var highTempure %>
+            <% var lowTempure %>
+            <table class="table">
             <% _.each(weather, function(weather) { %>
-            <li>
-                <ul>
-                    <li><%= weather.get('day') %></li>
-                    <li><%= weather.get('text') %></li>
-                    <li>
-                        <%= Math.round((parseInt(weather.get('high')) - 32) * (5/9)) %>° 
-                        <%= Math.round((parseInt(weather.get('low')) - 32) * (5/9)) %>°
-                    </li>
-                </ul>
-            </li>
+                <% highTempure = Math.round((parseInt(weather.get('high')) - 32) * (5/9)) %>
+                <% lowTempure = Math.round((parseInt(weather.get('low')) - 32) * (5/9)) %>
+            <tr>
+                <td class="cell"><%= weather.get('day') %></td>
+                <td class="cell text-center">
+                    <i class="wi wi-yahoo-<%= weather.get('code') %>"></i>
+                </td>
+                <td class="cell text-right"><%= highTempure %>° <%= lowTempure %>°</td>
+            </tr>
             <% }); %>
-            </ul>
+            </table>
         </script>
 
         <script>
